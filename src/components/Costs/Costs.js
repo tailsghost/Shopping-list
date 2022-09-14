@@ -1,13 +1,33 @@
 import CostItem from "./CostItem";
-import "./Costs.css";
+import CostsFilter from "../CostFilter/CostsFilter";
 import Card from "../UI/Card";
+import "./Costs.css";
+import { useState } from "react";
+
 function Costs({ costs }) {
+  const [date, setDate] = useState("2022");
+  const onChangeYearHandler = (year) => {
+    setDate(year);
+  };
   return (
-    <Card className="costs">
-      <CostItem cost={costs[0]} />
-      <CostItem cost={costs[1]} />
-      <CostItem cost={costs[2]} />
-    </Card>
+    <div>
+      <Card className="costs">
+        <CostsFilter
+          onChangeYear={onChangeYearHandler}
+          date={date}
+        />
+        {costs.map(
+          (item) =>
+            // eslint-disable-next-line
+            date == item.costDate.getFullYear() && (
+              <CostItem
+                key={item.id}
+                cost={item}
+              />
+            )
+        )}
+      </Card>
+    </div>
   );
 }
 
