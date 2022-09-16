@@ -1,7 +1,7 @@
 import CostForm from "./CostForm";
-import "./NewCost.css";
 
-function NewCost(props) {
+function NewCost({ props, toggle }) {
+  console.log(props);
   function saveCostDataHandler(inputCostData) {
     const costData = {
       ...inputCostData,
@@ -10,9 +10,12 @@ function NewCost(props) {
     props.onAddCost(costData);
   }
   return (
-    <div className="new-cost">
-      <CostForm onSaveCostData={saveCostDataHandler} />
-    </div>
+    <>
+      <CostForm
+        onSaveCostData={saveCostDataHandler}
+        toggle={toggle}
+      />
+    </>
   );
 }
 

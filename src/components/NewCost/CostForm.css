@@ -23,4 +23,7 @@
 
 .new-cost__actions {
   text-align: left;
+  position: relative;
+  display: flex;
+  margin-top: 20px;
 }

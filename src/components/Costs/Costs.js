@@ -1,33 +1,31 @@
-import CostItem from "./CostItem";
 import CostsFilter from "../CostFilter/CostsFilter";
 import Card from "../UI/Card";
 import "./Costs.css";
 import { useState } from "react";
+import CostList from "./CostList";
+import CostsDiagram from "./CostsDiagram";
 
 function Costs({ costs }) {
   const [date, setDate] = useState("2022");
   const onChangeYearHandler = (year) => {
     setDate(year);
   };
+
+  const filterCosts = costs.filter(
+    (item) => item.costDate.getFullYear().toString() === date
+  );
+
   return (
-    <div>
+    <li>
       <Card className="costs">
         <CostsFilter
           onChangeYear={onChangeYearHandler}
-          date={date}
+          costDate={date}
         />
-        {costs.map(
-          (item) =>
-            // eslint-disable-next-line
-            date == item.costDate.getFullYear() && (
-              <CostItem
-                key={item.id}
-                cost={item}
-              />
-            )
-        )}
+        <CostsDiagram costs={filterCosts} />
+        <CostList cost={filterCosts} />
       </Card>
-    </div>
+    </li>
   );
 }
 
